@@ -1,0 +1,8 @@
+{
+  "name": "Remix Agape Light Network — Nonprofit Portal \u0026 cPanel System",
+  "description": "Dynamic donation and project management system for Agape Light Network (Rev. Azeem Tariq). Spreading light, living love (John 8:12).",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

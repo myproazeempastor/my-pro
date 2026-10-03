@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      (function() {
+        try {
+          var proto = window;
+          while (proto) {
+            try {
+              var desc = Object.getOwnPropertyDescriptor(proto, 'fetch');
+              if (desc) {
+                var _cur = desc.value || (desc.get ? desc.get.call(window) : window.fetch);
+                Object.defineProperty(proto, 'fetch', {
+                  get: function() { return _cur; },
+                  set: function(v) { _cur = v; },
+                  configurable: true,
+                  enumerable: true
+                });
+                break;
+              }
+            } catch (_) {}
+            proto = Object.getPrototypeOf(proto);
+          }
+        } catch (_) {}
+        try {
+          var _wFetch = window.fetch;
+          Object.defineProperty(window, 'fetch', {
+            get: function() { return _wFetch; },
+            set: function(v) { _wFetch = v; },
+            configurable: true,
+            enumerable: true
+          });
+        } catch (_) {}
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agape Light Network — Spreading Light, Living Love</title>
+    <meta name="description" content="Agape Light Network: Dynamic donation and project management platform. Founder & President Rev. Azeem Tariq. Inspired by John 8:12." />
+    <meta property="og:title" content="Agape Light Network — Spreading Light, Living Love" />
+    <meta property="og:description" content="Agape Light Network: Dynamic donation and project management platform. Founder & President Rev. Azeem Tariq. Inspired by John 8:12." />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-slate-50 text-slate-800 antialiased selection:bg-amber-100 selection:text-amber-900">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+

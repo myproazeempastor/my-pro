@@ -1,0 +1,45 @@
+# =====================================================================
+# AGAPE LIGHT NETWORK — APACHE CONFIGURATION (.htaccess)
+# =====================================================================
+
+# 1. Enable Rewrite Engine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Enforce HTTPS where available (optional on test setups, recommended for production)
+    # RewriteCond %{HTTPS} off
+    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Block access to hidden files and directories (starting with a dot)
+    RewriteRule (^\.|/\.) - [F]
+
+    # Prevent direct access to sensitive folders
+    RewriteRule ^(app|config|storage)/ - [F,L]
+
+    # Allow direct access to existing files and directories (assets, uploads)
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # Route all other public requests through front controller
+    RewriteRule ^(.*)$ index.php?route=$1 [QSA,L]
+</IfModule>
+
+# 2. Security Headers
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set X-XSS-Protection "1; mode=block"
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# 3. Disable Directory Index Browsing
+Options -Indexes
+
+# 4. Protect specific file types
+<FilesMatch "(^\#.*\#|\.(bak|config|dist|fla|inc|ini|log|psd|sh|sql|sw[op])|~)$">
+    Order allow,deny
+    Deny from all
+    Satisfy All
+</FilesMatch>
